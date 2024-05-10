@@ -1,11 +1,10 @@
-function binarySearch(arr, target) {
-  let low = 0;
-  let high = arr.length - 1;
-  while (low <= high) {
-    let mid = Math.floor((low + high) / 2);
-    if (arr[mid] === target) return mid;
-    if (arr[mid] < target) low = mid + 1;
-    else high = mid - 1;
+function mergeKLists(lists) {
+  if (lists.length === 0) return null;
+  while (lists.length > 1) {
+    const first = lists.shift();
+    const second = lists.shift();
+    const merged = mergeTwoLists(first, second);
+    lists.push(merged);
   }
-  return -1;
+  return lists[0];
 }
