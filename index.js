@@ -1,10 +1,22 @@
-function mergeKLists(lists) {
-  if (lists.length === 0) return null;
-  while (lists.length > 1) {
-    const first = lists.shift();
-    const second = lists.shift();
-    const merged = mergeTwoLists(first, second);
-    lists.push(merged);
+function removeKdigits(num, k) {
+  const stack = [];
+  for (const digit of num) {
+    while (k > 0 && stack.length && stack[stack.length - 1] > digit) {
+      stack.pop();
+      k--;
+    }
+    stack.push(digit);
   }
-  return lists[0];
+  while (k > 0) {
+    stack.pop();
+    k--;
+  }
+  let result = "";
+  let leadingZero = true;
+  for (const digit of stack) {
+    if (leadingZero && digit === "0") continue;
+    leadingZero = false;
+    result += digit;
+  }
+  return result || "0";
 }
