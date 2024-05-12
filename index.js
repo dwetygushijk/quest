@@ -1,22 +1,17 @@
-function removeKdigits(num, k) {
-  const stack = [];
-  for (const digit of num) {
-    while (k > 0 && stack.length && stack[stack.length - 1] > digit) {
-      stack.pop();
-      k--;
-    }
-    stack.push(digit);
+function isIsomorphic(s, t) {
+  if (s.length !== t.length) return false;
+  const sMap = new Map();
+  const tMap = new Map();
+  for (let i = 0; i < s.length; i++) {
+    const sChar = s[i];
+    const tChar = t[i];
+    if (
+      (sMap.has(sChar) && sMap.get(sChar) !== tChar) ||
+      (tMap.has(tChar) && tMap.get(tChar) !== sChar)
+    )
+      return false;
+    sMap.set(sChar, tChar);
+    tMap.set(tChar, sChar);
   }
-  while (k > 0) {
-    stack.pop();
-    k--;
-  }
-  let result = "";
-  let leadingZero = true;
-  for (const digit of stack) {
-    if (leadingZero && digit === "0") continue;
-    leadingZero = false;
-    result += digit;
-  }
-  return result || "0";
+  return true;
 }
