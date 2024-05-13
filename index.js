@@ -1,17 +1,16 @@
-function isIsomorphic(s, t) {
-  if (s.length !== t.length) return false;
-  const sMap = new Map();
-  const tMap = new Map();
-  for (let i = 0; i < s.length; i++) {
-    const sChar = s[i];
-    const tChar = t[i];
-    if (
-      (sMap.has(sChar) && sMap.get(sChar) !== tChar) ||
-      (tMap.has(tChar) && tMap.get(tChar) !== sChar)
-    )
-      return false;
-    sMap.set(sChar, tChar);
-    tMap.set(tChar, sChar);
+function longestCommonPrefix(strs) {
+  if (strs.length === 0) return "";
+  let prefix = strs[0];
+  for (let i = 1; i < strs.length; i++) {
+    let j = 0;
+    while (
+      j < prefix.length &&
+      j < strs[i].length &&
+      prefix.charAt(j) === strs[i].charAt(j)
+    ) {
+      j++;
+    }
+    prefix = prefix.substring(0, j);
   }
-  return true;
+  return prefix;
 }
